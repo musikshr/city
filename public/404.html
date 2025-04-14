@@ -19,7 +19,7 @@
 </head>
 <body></body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -35,6 +35,24 @@
 
     // Перенаправляем с учётом базового пути
     window.location.href = repoName + '/index.html';
+  </script>
+</head>
+<body></body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Loading...</title>
+  <script>
+    // 1. Получаем текущий путь (например, '/city/catalog')
+    const path = window.location.pathname;
+    
+    // 2. Сохраняем путь КАК ЕСТЬ (без изменений)
+    sessionStorage.setItem('redirect', path);
+    
+    // 3. Перенаправляем БЕЗ цикла
+    window.location.replace('/city/index.html');
   </script>
 </head>
 <body></body>
