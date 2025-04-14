@@ -1,57 +1,14 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>SPA Fallback</title>
-  <script>
-    const repoName = '/city';
-    const path = window.location.pathname;
-    
-    // Сохраняем путь для React Router (например, '/catalog')
-    if (path.startsWith(repoName)) {
-      const routePath = path.slice(repoName.length) || '/';
-      sessionStorage.setItem('redirect', routePath);
-    }
-    
-    // Перенаправляем на index.html
-    window.location.href = repoName + '/index.html';
-  </script>
-</head>
-<body></body>
-</html> -->
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>SPA Redirect</title>
-  <script>
-    const repoName = '/city'; // Важно: имя репозитория
-    const fullPath = window.location.pathname;
-
-    // Сохраняем полный путь (например, '/city/catalog')
-    if (fullPath.startsWith(repoName)) {
-      sessionStorage.setItem('redirect', fullPath);
-    }
-
-    // Перенаправляем с учётом базового пути
-    window.location.href = repoName + '/index.html';
-  </script>
-</head>
-<body></body>
-</html> -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Loading...</title>
+  <title>Redirecting...</title>
   <script>
-    // 1. Получаем текущий путь (например, '/city/catalog')
+    // Сохраняем полный путь как есть
     const path = window.location.pathname;
+    localStorage.setItem('redirect', path); // Используем localStorage вместо sessionStorage
     
-    // 2. Сохраняем путь КАК ЕСТЬ (без изменений)
-    sessionStorage.setItem('redirect', path);
-    
-    // 3. Перенаправляем БЕЗ цикла
+    // Перенаправляем без истории
     window.location.replace('/city/index.html');
   </script>
 </head>
