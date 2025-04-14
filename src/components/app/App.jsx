@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Catalog from "../catalog/Catalog";
 import Content from "../content/Content";
 import Contacts from "../contacts/Contacts";
@@ -19,6 +20,16 @@ const App = () => {
     const mockData = data;
     setPropertiesData(mockData);
   }, []);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleForceUpdate = () => {
+      navigate(window.location.pathname.replace('/city', ''));
+    };
+
+    window.addEventListener('forceRouteUpdate', handleForceUpdate);
+    return () => window.removeEventListener('forceRouteUpdate', handleForceUpdate);
+  }, [navigate]);
 
   return (
     <div className="App">
