@@ -6,11 +6,13 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { HashRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const redirect = sessionStorage.getItem('redirect');
-if (redirect) {
-  sessionStorage.removeItem('redirect');
-  window.location.href = redirect;
-}
+setTimeout(() => {
+  const redirectPath = sessionStorage.getItem('redirect');
+  if (redirectPath) {
+    sessionStorage.removeItem('redirect');
+    history.replaceState(null, '', redirectPath);
+  }
+}, 50);
 
 root.render(
   // <React.StrictMode>
