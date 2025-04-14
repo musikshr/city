@@ -1,0 +1,189 @@
+.contComplexFlats {
+    padding: 60px 10px;
+    .flats{
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+.emptyContainer {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 30px;
+
+    .action {
+
+        .bigText {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: left;
+        }
+    }
+
+    .contButtons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: flex-start;
+
+        button {
+            background-color: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(36, 32, 29, 0.1);
+            }
+        }
+    }
+}
+.title{
+    text-align: start;
+    font-weight: bold;
+    font-size: 30px;
+}
+.flatsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 376.6px));
+    gap: 35px;
+    margin-top: 15px;
+    .flatCard {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .flatImage {
+            height: 200px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .flatInfo {
+            padding: 15px;
+            text-align: start;
+
+            h3 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            .priceAndButton {
+                display: flex;
+                justify-content: space-between;
+
+                .priceAndPriceForOne {
+                    margin-bottom: 15px;
+
+                    .price {
+                        font-weight: bold;
+                        font-size: 20px;
+                        color: #2c3e50;
+                    }
+
+                    .priceForOne {
+                        font-size: 14px;
+                        color: rgba(36, 32, 29, 0.5);
+                    }
+                }
+
+                .buttonFavorite {
+                    .favoriteBtn {
+                        cursor: pointer;
+                        height: 40px;
+                        width: 40px;
+                        border-radius: 50%;
+                        border: 1px solid #eaeaea;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        path {
+                            fill: rgba(36, 32, 29, );
+                        }
+
+                        &.active {
+                            svg {
+                                path {
+                                    fill: red;
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            background-color: rgba(36, 32, 29, 0.1);
+                        }
+                    }
+                }
+            }
+
+            .roomsAreaFloor {
+                display: flex;
+                column-gap: 10px;
+                font-weight: bold;
+                margin-bottom: 15px;
+
+                span {
+                    color: rgba(36, 32, 29, 0.5);
+                }
+
+                p {
+                    font-size: 14px;
+                }
+            }
+
+            .complex {
+                color: rgba(36, 32, 29, 0.5);
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .propertyButton {
+            margin-bottom: 10px;
+
+            a {
+                button {
+                    padding: 10px 40px;
+                    border-radius: 5px;
+                    background-color: #dba337;
+                    transition: background-color 0.3s;
+
+                    &:hover {
+                        background-color: darken(#dba337, 10%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .emptyContainer {
+        display: flex;
+        flex-wrap: wrap-reverse;
+        .action {
+            text-align: start;
+        }
+    }
+}

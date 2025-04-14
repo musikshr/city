@@ -1,0 +1,182 @@
+// Основные цвета
+$white: #fff;
+$gold: #dba337;
+$dark: rgba(36, 32, 29, 1);
+
+// Общие стили для подвала
+.siteFooter {
+  background-color: $dark;
+  color: $white;
+  padding: 10px 20px;
+  font-family: Arial, sans-serif;
+
+  .footerContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+
+    // Логотип и описание
+    .footerLogo {
+      flex: 1 1 100%;
+      text-align: center;
+      margin-bottom: 20px;
+
+      .logo {
+        max-width: 150px;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        font-size: 14px;
+        color: $white;
+      }
+    }
+
+    // Навигация
+    .footerNav {
+      flex: 1 1 200px;
+
+      .navTitle {
+        color: $gold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .navLinks {
+        list-style: none;
+        padding: 0;
+
+        a {
+          margin-bottom: 8px;
+          li {
+            line-height: 40px;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+
+            &:hover {
+              color: $gold;
+            }
+          }
+        }
+      }
+    }
+
+    // Контакты
+    .footerContacts {
+      flex: 1 1 200px;
+
+      .contactsTitle {
+        color: $gold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .contactInfo {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        a{
+          font-size: 1rem;
+          li {
+            color: #fff;
+            // margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            span{
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    // Социальные сети
+    .footerSocial {
+      flex: 1 1 200px;
+
+      .socialTitle {
+        color: $gold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .socialLinks {
+        list-style: none;
+        padding: 0;
+        // display: flex;
+        gap: 10px;
+        a{
+          font-size: 2rem;
+          transition: 0.3s;
+          &:hover{
+            transform: scale(1.2);
+            transition: 0.3s;
+          }
+        }
+      }
+    }
+
+    // Форма подписки
+    .footerSubscribe {
+      flex: 1 1 100%;
+      text-align: center;
+
+      .subscribeTitle {
+        color: $gold;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .subscribeForm {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        input {
+          padding: 10px;
+          border: 1px solid $gold;
+          background-color: transparent;
+          color: $white;
+          outline: none;
+          width: 170px;
+
+          &::placeholder {
+            color: rgba($white, 0.7);
+          }
+        }
+
+        button {
+          padding: 10px 20px;
+          background-color: $gold;
+          color: $white;
+          border: none;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: darken($gold, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  // Авторские права
+  .footerCopyright {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px 0 50px 0;
+    border-top: 1px solid rgba($white, 0.1);
+
+    p {
+      font-size: 14px;
+      color: rgba($white, 0.7);
+    }
+  }
+}

@@ -1,0 +1,135 @@
+.fixedContainer {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 375px;
+    background-color: rgb(255, 255, 255, .85);
+
+    .buttonsFixed {
+        padding: 10px 0px;
+        display: flex;
+        column-gap: 10px;
+        justify-content: center;
+
+        button {
+            padding: 10px 44px;
+            border-radius: 6px;
+        }
+
+        .call {
+            background-color: #dba337;
+            color: #fff;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: darken(#dba337, 10%);
+            }
+        }
+
+        .request {
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: darken(#fff, 15%);
+            }
+        }
+    }
+}
+
+.wrapperButtonsActions {
+    .modalOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contModalWrapper {
+        z-index: 20;
+        max-width: 420px;
+        overflow: hidden;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        padding: 0 10px;
+    }
+
+    .modalWrapper {
+        // z-index: 20;
+        // max-width: 420px;
+        // overflow: hidden;
+        // position: fixed;
+        // top: 50%;
+        // left: 50%;
+        // margin-right: -50%;
+        // transform: translate(-50%, -50%);
+        // padding: 0 10px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+
+        .cross {
+            background-color: #fff;
+            align-self: end;
+        }
+
+        .modalContent {
+            padding: 0 24px 24px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            .requestForm {
+
+                .successMessage {
+                    font-size: 20px;
+                    color: #dba337;
+                    font-weight: 600;
+
+                    .thanks {
+                        margin-bottom: 20px;
+                        color: rgba(36, 32, 29);
+                    }
+                }
+
+                p {
+                    text-align: start;
+                    margin: 20px 0 10px;
+                }
+
+                input {
+                    font-size: 20px;
+                    padding: 10px 7px;
+                    width: 95%;
+                    margin-bottom: 20px;
+                }
+
+                .callMe {
+                    padding: 1rem 2rem;
+                    border: none;
+                    border-radius: 4px;
+                    font-size: 1rem;
+                    font-weight: bold;
+                    background-color: #dba337;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    margin-bottom: 20px;
+
+                    &:hover {
+                        background-color: darken(#dba337, 10%);
+                        transform: translateY(-3px);
+                    }
+                }
+            }
+        }
+    }
+}
