@@ -2,16 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Redirect SPA</title>
+    <title>Redirecting...</title>
     <script>
-      const repoName = '/city';  // Замените на имя репозитория
+      const repoName = '/city';
       const path = window.location.pathname;
-      
+
       // Сохраняем путь для React Router
       if (path.startsWith(repoName + '/')) {
         sessionStorage.setItem('redirect', path);
       }
-      
+
       // Перенаправляем на index.html
       window.location.href = repoName + '/index.html';
     </script>
