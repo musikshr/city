@@ -2,21 +2,19 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Redirecting...</title>
+  <title>SPA Fallback</title>
   <script>
-    // 1. Берём текущий путь (например, '/city/catalog')
-    const fullPath = window.location.pathname; 
+    const repoName = '/city';
+    const path = window.location.pathname;
     
-    // 2. Удаляем часть '/city', если есть (для React Router)
-    const pathWithoutRepo = fullPath.startsWith('/city') 
-      ? fullPath.slice('/city'.length) 
-      : fullPath;
-
-    // 3. Сохраняем очищенный путь для React Router
-    sessionStorage.setItem('redirect', pathWithoutRepo || '/');
-
-    // 4. Перенаправляем на index.html (без циклических редиректов!)
-    window.location.replace('/city/index.html');
+    // Сохраняем путь для React Router (например, '/catalog')
+    if (path.startsWith(repoName)) {
+      const routePath = path.slice(repoName.length) || '/';
+      sessionStorage.setItem('redirect', routePath);
+    }
+    
+    // Перенаправляем на index.html
+    window.location.href = repoName + '/index.html';
   </script>
 </head>
 <body></body>
