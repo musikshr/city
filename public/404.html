@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -18,4 +18,25 @@
   </script>
 </head>
 <body></body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SPA Redirect</title>
+  <script>
+    const repoName = '/city'; // Важно: имя репозитория
+    const fullPath = window.location.pathname;
+
+    // Сохраняем полный путь (например, '/city/catalog')
+    if (fullPath.startsWith(repoName)) {
+      sessionStorage.setItem('redirect', fullPath);
+    }
+
+    // Перенаправляем с учётом базового пути
+    window.location.href = repoName + '/index.html';
+  </script>
+</head>
+<body></body>
 </html>
+
