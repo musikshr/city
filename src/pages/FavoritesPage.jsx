@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import PropertyImageSlider from '../components/propertyCard/propertyCard';
 
@@ -38,28 +38,6 @@ const FavoritesPage = () => {
                         <div className="flatsGrid">
                             {favorites.map(flat => (
                                 <div key={flat.id} className="flatCard">
-                                    {/* <div className="flat-image">
-                                    <img src={flat.img} alt={`Квартира ${flat.id}`} />
-                                    <button
-                                        className="favorite-button active"
-                                        onClick={() => removeFavorite(flat.id)}
-                                    >
-                                        ★
-                                    </button>
-                                </div>
-                                <div className="flat-info">
-                                    <h3>{flat.rooms}-комн. квартира</h3>
-                                    <p>Площадь: {flat.area} м²</p>
-                                    <p>Этаж: {flat.floor}</p>
-                                    <p>Адрес: {flat.adress}</p>
-                                    <p className="price">{flat.price.toLocaleString() ?? 'Цена не указана'} руб.</p>
-                                    <p>Цена за м²: {(flat.price && flat.area) ? (flat.price / flat.area).toFixed(0).toLocaleString() : '—'} руб.</p>
-                                </div>
-                                <div className='propertyButton'>
-                                    <a href={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">
-                                        <button>Подробнее</button>
-                                    </a>
-                                </div> */}
                                     <div className="flatImage">
                                         <PropertyImageSlider images={[flat.img, flat.img2]} />
                                     </div>
@@ -88,9 +66,12 @@ const FavoritesPage = () => {
                                         <p className="adress">{flat.adress}</p>
                                     </div>
                                     <div className='propertyButton'>
-                                        <a href={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">
+                                        {/* <a href={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">
                                             <button>Подробнее</button>
-                                        </a>
+                                        </a> */}
+                                        <Link to={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">
+                                            <button>Подробнее</button>
+                                        </Link>
                                     </div>
                                 </div>
                             ))}
