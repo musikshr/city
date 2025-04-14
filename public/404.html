@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script>
-      const repoName = '/city';
-      const path = window.location.pathname;
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // 1. Берём текущий путь (например, '/city/catalog')
+    const fullPath = window.location.pathname; 
+    
+    // 2. Удаляем часть '/city', если есть (для React Router)
+    const pathWithoutRepo = fullPath.startsWith('/city') 
+      ? fullPath.slice('/city'.length) 
+      : fullPath;
 
-      // Сохраняем путь для React Router
-      if (path.startsWith(repoName + '/')) {
-        sessionStorage.setItem('redirect', path);
-      }
+    // 3. Сохраняем очищенный путь для React Router
+    sessionStorage.setItem('redirect', pathWithoutRepo || '/');
 
-      // Перенаправляем на index.html
-      window.location.href = repoName + '/index.html';
-    </script>
-  </head>
-  <body></body>
+    // 4. Перенаправляем на index.html (без циклических редиректов!)
+    window.location.replace('/city/index.html');
+  </script>
+</head>
+<body></body>
 </html>

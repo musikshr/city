@@ -6,16 +6,16 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { HashRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-// const redirect = sessionStorage.getItem('redirect');
-// if (redirect) {
-//   sessionStorage.removeItem('redirect');
-//   window.location.href = redirect;
-// }
+const redirect = sessionStorage.getItem('redirect');
+if (redirect) {
+  sessionStorage.removeItem('redirect');
+  window.location.href = redirect;
+}
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter basename="/city" >
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
