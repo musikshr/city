@@ -8,11 +8,11 @@ import { HashRouter } from 'react-router-dom';
 const redirectPath = localStorage.getItem('redirect');
 if (redirectPath) {
   localStorage.removeItem('redirect');
-  
+
   // Ждём загрузки всех скриптов
   window.addEventListener('load', () => {
     window.history.replaceState(null, '', redirectPath);
-    
+
     // Форсируем обновление роутера
     const event = new Event('forceRouteUpdate');
     window.dispatchEvent(event);
@@ -20,9 +20,11 @@ if (redirectPath) {
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
-    <BrowserRouter >
+  <React.StrictMode>
+    {/* // <BrowserRouter > */}
+    <HashRouter>
       <App />
-    </BrowserRouter>
-  // </React.StrictMode>
+    </HashRouter>
+    {/* // </BrowserRouter> */}
+  </React.StrictMode>
 );
