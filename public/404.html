@@ -16,9 +16,14 @@
 <head>
   <meta charset="utf-8">
   <title>Redirecting...</title>
-  <script>
+  <!-- <script>
     sessionStorage.redirect = location.pathname;
     location.replace('/');
+  </script> -->
+  <script>
+    // Важно: сохраняем полный путь
+    sessionStorage.redirect = window.location.pathname + window.location.search;
+    window.location.replace('/');
   </script>
 </head>
 <body>
