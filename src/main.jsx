@@ -21,7 +21,7 @@ if (redirectPath) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-    <BrowserRouter basename="/city" >
+    <BrowserRouter >
       <App />
     </BrowserRouter>
   // </React.StrictMode>
