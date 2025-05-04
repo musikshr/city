@@ -66,11 +66,11 @@ const ComplexFlats = () => {
         let count = complex.dataFlat;
 
         if (filters.minPrice) {
-            count = count.filter(flat => flat.price >= Number(filters.minPrice));
+            count = count.filter(flat => (complex.price * flat.area) >= Number(filters.minPrice));
         }
 
         if (filters.maxPrice) {
-            count = count.filter(flat => flat.price <= Number(filters.maxPrice));
+            count = count.filter(flat => (complex.price * flat.area) <= Number(filters.maxPrice));
         }
 
         if (filters.minArea) {
@@ -90,8 +90,10 @@ const ComplexFlats = () => {
 
     const applyFilters = () => {
         const result = complex.dataFlat.filter(flat => {
-            if (filters.minPrice && flat.price < Number(filters.minPrice)) return false;
-            if (filters.maxPrice && flat.price > Number(filters.maxPrice)) return false;
+            const flatPrice = complex.price * flat.area;
+
+            if (filters.minPrice && flatPrice < Number(filters.minPrice)) return false;
+            if (filters.maxPrice && flatPrice > Number(filters.maxPrice)) return false;
             if (filters.minArea && flat.area < Number(filters.minArea)) return false;
             if (filters.maxArea && flat.area > Number(filters.maxArea)) return false;
             if (filters.rooms.length > 0 && !filters.rooms.includes(flat.rooms)) return false;
@@ -175,16 +177,6 @@ const ComplexFlats = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="depiction">
-                    <p className="titleDepiction">
-                        Описание
-                    </p>
-                    <p className='textDepiction'>{complex.description1}</p>
-                    <p className='textDepiction'>{complex.description2}</p>
-                    <p className='textDepiction'>{complex.description3}</p>
-                    <p className='textDepiction'>{complex.description4}</p>
-                    <p className='textDepiction'>{complex.description5}</p>
-                </div> */}
                 <div className="filtersContainer">
                     <div className="filterGroup">
                         <p>Стоимость, ₽</p>
@@ -192,14 +184,14 @@ const ComplexFlats = () => {
                             <input
                                 type="number"
                                 name="minPrice"
-                                placeholder="От"
+                                placeholder={`От ${Math.round(complex.price * Math.min(...complex.dataFlat.map(f => f.area))).toLocaleString()}₽`}
                                 value={filters.minPrice}
                                 onChange={handleInputChange}
                             />
                             <input
                                 type="number"
                                 name="maxPrice"
-                                placeholder="До"
+                                placeholder={`До ${Math.round(complex.price * Math.max(...complex.dataFlat.map(f => f.area))).toLocaleString()}₽`}
                                 value={filters.maxPrice}
                                 onChange={handleInputChange}
                             />
@@ -212,14 +204,14 @@ const ComplexFlats = () => {
                             <input
                                 type="number"
                                 name="minArea"
-                                placeholder="От"
+                                placeholder={`От ${Math.min(...complex.dataFlat.map(f => f.area))}м²`}
                                 value={filters.minArea}
                                 onChange={handleInputChange}
                             />
                             <input
                                 type="number"
                                 name="maxArea"
-                                placeholder="До"
+                                placeholder={`До ${Math.max(...complex.dataFlat.map(f => f.area))}м²`}
                                 value={filters.maxArea}
                                 onChange={handleInputChange}
                             />

@@ -217,7 +217,7 @@ function generateData() {
             adress: 'пр. Петра I 45Б',
             map: '3Af7a9e58994e07c4260eed3a826069f5e1a3dc5972843cf80223779c0ae47442a',
             dataFlat: [
-                { id: flatIdCounter++, img: '/images/PrimakovaPlan30.jpeg', area: 30, rooms: 1, floor: '1/12',},
+                { id: flatIdCounter++, img: '/images/PrimakovaPlan30.jpeg', area: 30, rooms: 1, floor: '1/12', mainPrice: `price*flat.area`},
                 { id: flatIdCounter++, img: '/images/PrimakovaPlan30,7.jpeg', area: 30.7, rooms: 1, floor: '1/12',},
                 { id: flatIdCounter++, img: '/images/PrimakovaPlan34.jpeg', area: 34, rooms: 1, floor: '1/12',},
                 { id: flatIdCounter++, img: '/images/PrimakovaPlan35.jpeg', img2: '/images/PrimakovaPlan2.jpeg', area: 35, rooms: 1, floor: '1/12',},

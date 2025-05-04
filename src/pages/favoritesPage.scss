@@ -34,13 +34,14 @@
 
         button {
             background-color: #fff;
+            color: rgba(36, 32, 29,);
             border: 1px solid #eaeaea;
             border-radius: 5px;
             padding: 10px 20px;
             font-size: 18px;
             font-weight: 500;
             cursor: pointer;
-
+            transition: background-color, 0.3s;
             &:hover {
                 background-color: rgba(36, 32, 29, 0.1);
             }
