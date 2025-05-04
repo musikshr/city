@@ -5,7 +5,7 @@ function generateData() {
     const data = [
         {
             id: 1,
-            images: ['/images/Primorskiy1.jpg', '/images/Primorskiy2.jpg', '/images/Primorskiy3.jpg', '/images/Primorskiy4.jpg',],
+            images: ['/images/Primorskiy1.jpg', '/images/Primorskiy2.jpg', '/images/Primorskiy3.jpg', '/images/Primorskiy4.jpg', '/images/Plan1Primorskiy.jpeg', '/images/Plan2Primorskiy.jpeg'],
             nameComplex: 'Приморский',
             relinquishment: 'IV кв 2027',
             price: 75000,
