@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
+import data from '../utils/dataexample';
+
 import PropertyImageSlider from '../components/propertyCard/propertyCard';
 
 import './favoritesPage.scss';
@@ -11,6 +13,17 @@ const FavoritesPage = () => {
         const savedFavorites = JSON.parse(localStorage.getItem('favoriteFlats')) || [];
         setFavorites(savedFavorites);
     }, []);
+
+    const getComplexInfo = (flatId) => {
+        if (data && Array.isArray(data)) {
+            for (const group of data) {
+                if (group.dataFlat && group.dataFlat.some(item => item.id.toString() === flatId.toString())) {
+                    return group;
+                }
+            }
+        }
+        return null;
+    };
 
     const removeFavorite = (flatId) => {
         const updatedFavorites = favorites.filter(flat => flat.id !== flatId);
@@ -36,16 +49,23 @@ const FavoritesPage = () => {
                     <>
                         <p className='title'>Избранное</p>
                         <div className="flatsGrid">
-                            {favorites.map(flat => (
+                            {favorites.map(flat => {
+                                const complexInfo = getComplexInfo(flat.id);
+                                return(
                                 <div key={flat.id} className="flatCard">
                                     <div className="flatImage">
-                                        <PropertyImageSlider images={[flat.img, flat.img2]} />
+                                        <PropertyImageSlider
+                                            images={[
+                                                flat.img,
+                                                flat.img2 || complexInfo.img2
+                                            ].filter(Boolean)}
+                                        />
                                     </div>
                                     <div className="flatInfo">
                                         <div className="priceAndButton">
                                             <div className="priceAndPriceForOne">
-                                                <p className="price">{flat.price.toLocaleString() ?? 'Цена не указана'}₽</p>
-                                                <p className='priceForOne'>{(flat.price && flat.area) ? (flat.price / flat.area).toFixed(0).toLocaleString() : '—'}₽/м²</p>
+                                                <p className="price">{(complexInfo.price * flat.area).toLocaleString()}₽</p>
+                                                <p className='priceForOne'>{(complexInfo.price).toLocaleString()}₽/м²</p>
                                             </div>
                                             <div className="buttonFavorite">
                                                 <div onClick={() => removeFavorite(flat.id)} className='favoriteBtn active'>
@@ -62,8 +82,7 @@ const FavoritesPage = () => {
                                             <span>/</span>
                                             <p>{flat.floor}</p>
                                         </div>
-                                        <p className='complex'>{flat.street}</p>
-                                        <p className="adress">{flat.adress}</p>
+                                        <p className='relinquishment'>Срок сдачи: {complexInfo.relinquishment}</p>
                                     </div>
                                     <div className='propertyButton'>
                                         {/* <a href={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">
@@ -73,8 +92,8 @@ const FavoritesPage = () => {
                                             <button>Подробнее</button>
                                         </Link>
                                     </div>
-                                </div>
-                            ))}
+                                </div>)
+                            })}
                         </div>
                     </>
                 )}

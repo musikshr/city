@@ -47,7 +47,7 @@ const Header = () => {
             <div className="wrapperHeaderHigh">
                 <div className="headerHigh">
                     <div className="flexCont">
-                        <a href='#' className="logoImage">CitiGroup</a>
+                        <a href='#' className="logoImage">CityGroup05</a>
                         <a href='https://yandex.ru/maps/28/makhachkala/house/1_y_sergokalinskiy_tupik_10k1/YE4YcwVgQUIOQFpofXV0dHpgYw==/?ll=47.522046%2C42.955205&z=18.77' className='locationHeaderHigh'>
                             <svg viewBox="0 0 24 24" width="16" height="16" style={{ fill: 'rgba(36,32,29, 0.6)' }} class="arrow">
                                 <path d="M12.906 20.18a1 1 0 0 1-1.796.1L8.5 15.595a.25.25 0 0 0-.096-.097L3.72 12.89a1 1 0 0 1 .1-1.796L17.192 5.5c.825-.345 1.653.483 1.308 1.308L12.906 20.18z"></path>

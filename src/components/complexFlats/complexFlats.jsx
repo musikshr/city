@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router';
-
-import PropertyImageSlider from '../propertyCard/propertyCard'
-
+import { Link } from 'react-router-dom'; 
 import './complexFlats.scss';
 import ButtonsActions from '../buttonsActions/ButtonsActions';
+import ComplexImageSlider from '../complexCard/complexCard';
+import PropertyImageSlider from '../propertyCard/propertyCard';
 
-const ComplexFlats = ({ data }) => {
+const ComplexFlats = () => { 
     const { complexId } = useParams();
-    const complex = data.find(c => c.id === parseInt(complexId));
+    const [complex, setComplex] = useState(null); // Данные комплекса
+    const [isLoading, setIsLoading] = useState(true); // Флаг загрузки
 
     const [visibleFlats, setVisibleFlats] = useState(9);
     const flatsPerLoad = 9;
@@ -22,26 +22,31 @@ const ComplexFlats = ({ data }) => {
         rooms: []
     });
 
-    const [filteredFlats, setFilteredFlats] = useState(complex?.dataFlat || []);
+    const [filteredFlats, setFilteredFlats] = useState([]);
     const [isFiltered, setIsFiltered] = useState(false);
     const [favorites, setFavorites] = useState([]);
 
+    // Динамически загружаем данные при монтировании
     useEffect(() => {
+        const loadData = async () => {
+            try {
+                const dataModule = await import('../../utils/dataexample');
+                const selectedComplex = dataModule.default.find(c => c.id === parseInt(complexId));
+                setComplex(selectedComplex);
+                setFilteredFlats(selectedComplex?.dataFlat || []);
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Ошибка загрузки данных:", error);
+                setIsLoading(false);
+            }
+        };
+
+        loadData();
+
         // Загрузка избранного из localStorage
         const savedFavorites = JSON.parse(localStorage.getItem('favoriteFlats')) || [];
         setFavorites(savedFavorites);
-        // Загрузка видимых квартир
-        const savedVisible = localStorage.getItem('visibleFlats');
-        if (savedVisible) setVisibleFlats(parseInt(savedVisible));
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('visibleFlats', visibleFlats.toString());
-    }, [visibleFlats]);
-
-    if (!complex) {
-        return <div>Комплекс не найден</div>;
-    }
+    }, [complexId]);
 
     const toggleFavorite = (flat) => {
         const isFavorite = favorites.some(fav => fav.id === flat.id);
@@ -134,16 +139,52 @@ const ComplexFlats = ({ data }) => {
         });
     };
 
+
+    if (isLoading) {
+        return <div>Загрузка данных...</div>;
+    }
+
+    if (!complex) {
+        return <div>Комплекс не найден</div>;
+    }
+
     const filteredCount = calculateFilteredCount();
     const currentFlats = filteredFlats.slice(0, visibleFlats);
     const hasMoreFlats = visibleFlats < filteredFlats.length;
+    const price = complex.price
+    const minArea = Math.min(...complex.dataFlat.map(flat => flat.area));
 
     return (
         <>
             <div className="contImage">
-                <PropertyImageSlider images={complex.images} />
+                <ComplexImageSlider images={complex.images} />
             </div>
             <div className="complexFlats">
+                <div className="description">
+                    <h3 className="titleComplex">
+                        ЖК {complex.nameComplex}
+                    </h3>
+                    <div className="flexcontainer">
+                        <div className="minPrice">
+                            <p className='titleMinPrice titleP'>Стоимость</p>
+                            <h1 className="price"><span>от</span> {(price * minArea).toLocaleString()}₽</h1>
+                        </div>
+                        <div className="relinquishment">
+                            <p className="titlerelinquishment titleP">Срок сдачи</p>
+                            <h1 className="dataRelinquishment">{complex.relinquishment}</h1>
+                        </div>
+                    </div>
+                </div>
+                {/* <div className="depiction">
+                    <p className="titleDepiction">
+                        Описание
+                    </p>
+                    <p className='textDepiction'>{complex.description1}</p>
+                    <p className='textDepiction'>{complex.description2}</p>
+                    <p className='textDepiction'>{complex.description3}</p>
+                    <p className='textDepiction'>{complex.description4}</p>
+                    <p className='textDepiction'>{complex.description5}</p>
+                </div> */}
                 <div className="filtersContainer">
                     <div className="filterGroup">
                         <p>Стоимость, ₽</p>
@@ -188,7 +229,7 @@ const ComplexFlats = ({ data }) => {
                     <div className="filterGroup">
                         <p>Комнатность</p>
                         <div className="contCheckbox">
-                            {[1, 2, 3, 4].map(room => (
+                            {[1, 2, 3].map(room => (
                                 <div key={room} className="checkbox">
                                     <input
                                         type="checkbox"
@@ -221,13 +262,18 @@ const ComplexFlats = ({ data }) => {
                             return (
                                 <div key={flat.id} className="flatCard">
                                     <div className="flatImage">
-                                        <PropertyImageSlider images={[flat.img, flat.img2]} />
+                                        <PropertyImageSlider
+                                            images={[
+                                                flat.img,
+                                                flat.img2 || complex.img2  // Используем flat.img2, если есть, иначе complex.img2
+                                            ].filter(Boolean)}  // Удаляем undefined/null
+                                        />
                                     </div>
                                     <div className="flatInfo">
                                         <div className="priceAndButton">
                                             <div className="priceAndPriceForOne">
-                                                <p className="price">{flat.price.toLocaleString() ?? 'Цена не указана'}₽</p>
-                                                <p className='priceForOne'>{(flat.price && flat.area) ? (flat.price / flat.area).toFixed(0).toLocaleString() : '—'}₽/м²</p>
+                                                <h3 className="price">{(complex.price * flat.area).toLocaleString() ?? 'Цена не указана'}₽</h3>
+                                                <p className='priceForOne'>{(complex.price).toLocaleString()}₽/м²</p>
                                             </div>
                                             <div className="buttonFavorite">
                                                 <div onClick={() => toggleFavorite(flat)}
@@ -245,8 +291,7 @@ const ComplexFlats = ({ data }) => {
                                             <span>/</span>
                                             <p>{flat.floor}</p>
                                         </div>
-                                        <p className='complex'>{flat.street}</p>
-                                        <p className="adress">{flat.adress}</p>
+                                        <p className='relinquishment'>Срок сдачи: {complex.relinquishment}</p>
                                     </div>
                                     <div className='propertyButton'>
                                         <Link to={`/card/${flat.id}`} target="_blank" rel="noopener noreferrer">

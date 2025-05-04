@@ -20,17 +20,7 @@ const App = () => {
     const mockData = data;
     setPropertiesData(mockData);
   }, []);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const handleForceUpdate = () => {
-  //     navigate(window.location.pathname.replace('/city', ''));
-  //   };
-
-  //   window.addEventListener('forceRouteUpdate', handleForceUpdate);
-  //   return () => window.removeEventListener('forceRouteUpdate', handleForceUpdate);
-  // }, [navigate]);
-
+  
   return (
     <div className="App">
       <header>
@@ -47,7 +37,7 @@ const App = () => {
           />
           <Route path="/card/:id" element={<Card />} />
           <Route path="/contacts" element={<Contacts />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/favorites" element={<FavoritesPage data={data}/>} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

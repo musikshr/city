@@ -87,10 +87,7 @@ const Catalog = () => {
                                     </svg>
                                 </button>
                                 <div className="modalContent">
-                                    {/* <h2>Заявка на бесплатный подбор недвижимости</h2>
-                                    <h4>Специалист перезвонит для уточнения деталей</h4> */}
                                     <TelegramFormCatalog/>
-                                    {/* <p>Нажимая на кнопку, вы даёте согласие на обработку <a href="l">персональных данных</a> </p> */}
                                 </div>
                             </div>
                         </div>
@@ -103,10 +100,10 @@ const Catalog = () => {
                     <p className='infoComplexes'>Клиент получает все услуги "CityGroup05" бепслатно</p>
                     <div className="complexesGrid">
                         {data.map(complex => {
-                            const minPrice = Math.min(...complex.dataFlat.map(flat => flat.price));
-                            const maxPrice = Math.max(...complex.dataFlat.map(flat => flat.price));
                             const minArea = Math.min(...complex.dataFlat.map(flat => flat.area));
                             const maxArea = Math.max(...complex.dataFlat.map(flat => flat.area));
+                            const minPrice = complex.price * minArea
+                            const maxPrice = complex.price * maxArea
 
                             return (
                                 <div
@@ -117,7 +114,7 @@ const Catalog = () => {
                                         <PropertyImageSlider images={complex.images} />
                                     </div>
                                     <div className="infoAboutComplex" onClick={() => handleComplexClick(complex.id)}>
-                                        <h3>{complex.nameComplex}</h3>
+                                        <h3>ЖК {complex.nameComplex}</h3>
                                         <p className='relinquishment'>{complex.relinquishment}</p>
                                         <p className='price'>Цены: от {minPrice.toLocaleString()}₽ до {maxPrice.toLocaleString()}₽</p>
                                         <p className='area'>Площадь: от {minArea.toLocaleString()}м² до {maxArea.toLocaleString()}м²</p>

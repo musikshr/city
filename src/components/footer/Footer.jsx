@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="siteFooter">
             <div className="footerContainer">
                 <div className="footerLogo">
-                    {/* <img src="logo.png" alt="Логотип компании" className="logo"> */}
+                    {/* <img src="logo.jpeg" alt="Логотип компании" className="logo"> */}
                 </div>
 
                 <div className="footerNav">

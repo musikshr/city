@@ -9,9 +9,9 @@
         text-align: center;
         p {
             margin-top: 20px;
-            font-size: 16px;
-            color: rgba(36, 32, 29, 0.7);
+            font-size: 20px;
             a {
+                color: rgba(36, 32, 29, 0.7);
                 &:hover{
                     text-decoration: underline;
                 }
@@ -51,6 +51,7 @@
             font-size: 1rem;
             font-weight: bold;
             background-color: #dba337;
+            color: #fff;
             cursor: pointer;
             transition: all 0.3s;
             margin-bottom: 20px;

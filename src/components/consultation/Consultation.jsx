@@ -42,7 +42,7 @@ const Consultation = () => {
                 setIsSubmitted(true);
                 setFormData({ name: '', phone: '' });
 
-                // Сбрасываем сообщение об успехе через 3 секунды
+                // Сбрасывание сообщения об успехе через 3 секунды
                 setTimeout(() => {
                     setIsSubmitted(false);
                 }, 3000);

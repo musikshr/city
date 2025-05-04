@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import data from '../utils/dataexample';
 
@@ -12,10 +12,9 @@ const Card = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const scrollPosition = useRef(0);
     const bodyRef = useRef(document.body);
-    const navigate = useNavigate();
 
     const { id } = useParams();
-    const [currentImage, setCurrentImage] = useState('');
+    const [currentImage, setCurrentImage] = useState(null);
 
     let card = null;
     if (data && Array.isArray(data)) {
@@ -23,6 +22,15 @@ const Card = () => {
             if (group.dataFlat && Array.isArray(group.dataFlat)) {
                 card = group.dataFlat.find(item => item.id.toString() === id);
                 if (card) break;
+            }
+        }
+    }
+    let complexInfo = null;
+    if (data && Array.isArray(data)) {
+        for (const group of data) {
+            if (group.dataFlat && group.dataFlat.some(item => item.id.toString() === id)) {
+                complexInfo = group;
+                break;
             }
         }
     }
@@ -78,8 +86,8 @@ const Card = () => {
     }, [isModalOpen]);
 
     const allImages = [
-        { id: 1, src: card.img, label: 'Планировка' },
-        { id: 2, src: card.img2, label: 'План этажа' },
+        { id: 1, src: card.img, label: 'Квартира' },
+        { id: 2, src: card.img2 ? card.img2 : complexInfo.img2, label: 'Этаж' },
     ].filter(item => item.src);
 
     if (!card) return <div>Товар не найден</div>
@@ -92,8 +100,7 @@ const Card = () => {
         { key: 'rooms', label: 'Комнатность', value: `${card.rooms}-комн.` },
         { key: 'area', label: 'Площадь', value: `${card.area} м²` },
         { key: 'floor', label: 'Этаж', value: card.floor },
-        { key: 'kitchen', label: 'Площадь кухни', value: '' },
-        { key: 'living', label: 'Жилая площадь', value: '' }
+        { key: 'renilquishmnet', label: 'Срок сдачи', value: complexInfo.relinquishment },
     ];
     return (
         <div className="wrapper">
@@ -110,7 +117,6 @@ const Card = () => {
                     <div className="imageButtons">
                         {allImages.map((image) => (
                             <button
-                                // key={image.id}
                                 key={`img-btn-${image.id}`}
                                 className={`imageButton ${currentImage === image.src ? 'active' : ''}`}
                                 onClick={() => handleImageChange(image.src)}
@@ -118,6 +124,7 @@ const Card = () => {
                                 {image.label}
                             </button>
                         ))}
+
                     </div>
                 </div>
                 <p className="littleTitle">Планировка</p>
@@ -138,11 +145,7 @@ const Card = () => {
                                     </svg>
                                 </button>
                                 <div className="modalContent">
-                                    {/* <h2>Оставьте номер телефона, и мы вам перезвоним</h2>
-                                    <p>Телефон</p>
-                                    <input type="tel" placeholder="123 456 78 90" />
-                                    <button className="callMe">Перезвоните мне</button> */}
-                                    <TelegramFormRequest/>
+                                    <TelegramFormRequest />
                                 </div>
                             </div>
                         </div>
@@ -153,8 +156,8 @@ const Card = () => {
                 <div className="titleWithPrice">
                     <p className="title">Общая информация</p>
                     <div className="contPrice">
-                        <p className="price">{card.price.toLocaleString()} ₽</p>
-                        <p className="priceForOne">{(card.price / card.area).toFixed().toLocaleString()}₽ за м²</p>
+                        <p className="price">{(complexInfo.price * card.area).toLocaleString()}₽</p>
+                        <p className="priceForOne">{(complexInfo.price).toLocaleString()}₽ за м²</p>
                     </div>
                 </div>
                 <div className="infoAboutFlat">
@@ -168,7 +171,7 @@ const Card = () => {
                 <div className="adress">
                     <p className="title">Расположение</p>
                     <p>{card.adress}</p>
-                    <iframe src={`https://yandex.ru/map-widget/v1/?um=constructor%${card.map}&amp;source=constructor`}></iframe>
+                    <iframe src={`https://yandex.ru/map-widget/v1/?um=constructor%${complexInfo.map}&amp;source=constructor`}></iframe>
                 </div>
             </div>
             <ButtonsActions />
